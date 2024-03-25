@@ -4,7 +4,7 @@ import game.engine.weapons.Weapon;
 
 public class FactoryResponse 
 {
-	private Weapon weapon;
+	private final Weapon weapon;
 	
 	private final int remainingResources;
 

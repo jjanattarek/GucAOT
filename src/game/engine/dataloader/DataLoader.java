@@ -19,7 +19,7 @@ public class DataLoader
 	}
 	public static HashMap<Integer ,TitanRegistry> readTitanRegistry() throws IOException
 	{
-		HashMap<Integer,TitanRegistry> info = new HashMap<Integer,TitanRegistry>();
+		HashMap<Integer,TitanRegistry> info = new HashMap<>();
 		BufferedReader br = new BufferedReader(new FileReader(TITANS_FILE_NAME));
 		String line = br.readLine();
 		
@@ -37,7 +37,7 @@ public class DataLoader
 
 	public static HashMap<Integer ,WeaponRegistry> readWeaponRegistry() throws IOException
 	{
-		HashMap<Integer,WeaponRegistry> info = new HashMap<Integer,WeaponRegistry>();
+		HashMap<Integer,WeaponRegistry> info = new HashMap<>();
 		BufferedReader br = new BufferedReader(new FileReader(WEAPONS_FILE_NAME));
 		String line = br.readLine();
 		while(line != null) {

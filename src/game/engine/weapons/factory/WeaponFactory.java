@@ -9,9 +9,9 @@ import game.engine.weapons.WeaponRegistry;
 
 public class WeaponFactory 
 {
-	private static final HashMap<Integer,WeaponRegistry> weaponShop = new HashMap<Integer,WeaponRegistry>();
+	private final HashMap<Integer,WeaponRegistry> weaponShop = new HashMap<Integer,WeaponRegistry>();
 
-    public HashMap<Integer, WeaponRegistry> getWeaponShop() 
+    public final HashMap<Integer, WeaponRegistry> getWeaponShop()
     {
 		return weaponShop;
 	}

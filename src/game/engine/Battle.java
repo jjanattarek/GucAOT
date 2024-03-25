@@ -19,14 +19,10 @@ public class Battle
 			{ 2, 2, 2, 1, 3, 3, 4 },
 			{ 4, 4, 4, 4, 4, 4, 4 } 
 	}; 
-    
-	public static int[][] getPHASES_APPROACHING_TITANS() {
-		return PHASES_APPROACHING_TITANS;
-	}
 
 	private final static int WALL_BASE_HEALTH = 10000 ;
 	
-	private final ArrayList<Titan> approachingTitans = new ArrayList<>(); 
+	private final ArrayList<Titan> approachingTitans = new ArrayList<>();
 
 	private int numberOfTurns;
 	
@@ -44,10 +40,14 @@ public class Battle
 
 	private final HashMap<Integer,TitanRegistry> titansArchives;
 
-	private final PriorityQueue<Lane> lanes = new PriorityQueue<>(); 
+	private final PriorityQueue<Lane> lanes = new PriorityQueue<>();
 
-	private ArrayList<Lane> originalLanes; 
-	
+	private final ArrayList<Lane> originalLanes;
+
+	public static int[][] getPHASES_APPROACHING_TITANS() {
+		return PHASES_APPROACHING_TITANS;
+	}
+
 	public static int getWALL_BASE_HEALTH() {
 		return WALL_BASE_HEALTH;
 	}
@@ -152,7 +152,6 @@ public class Battle
 	}
 
 	public static void main(String[] args) {
-
 	}
 	
 	
