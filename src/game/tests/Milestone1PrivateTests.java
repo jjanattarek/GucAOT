@@ -166,14 +166,14 @@ public class Milestone1PrivateTests {
 	@Test(timeout = 100)
 	public void testbaseHealthFinalAttribute() throws NoSuchFieldException, SecurityException, ClassNotFoundException {
 		Field baseHealthField = Class.forName(titanClassPath).getDeclaredField("baseHealth");
-		assertTrue("The baseHealth attribute should be final", Modifier.isFinal(baseHealthField.getModifiers()));
+		assertTrue("The baseHealth attribute should be final", java.lang.reflect.Modifier.isFinal(baseHealthField.getModifiers()));
 	}
 	
 	
 	@Test(timeout = 100)
 	public void testbaseHealthPrivateAttribute() throws NoSuchFieldException, SecurityException, ClassNotFoundException {
 		Field baseHealthField = Class.forName(titanClassPath).getDeclaredField("baseHealth");
-		assertTrue("The baseHealth attribute should be private", Modifier.isPrivate(baseHealthField.getModifiers()));
+		assertTrue("The baseHealth attribute should be private", java.lang.reflect.Modifier.isPrivate(baseHealthField.getModifiers()));
 	}
 	
 	
@@ -214,7 +214,7 @@ public class Milestone1PrivateTests {
 	@Test(timeout = 100)
 	public void testTitanCodeFinalAttributeInArmoredClass() throws NoSuchFieldException, SecurityException, ClassNotFoundException {
 		Field titanCodeField = Class.forName(ArmoredTitanClassPath).getDeclaredField("TITAN_CODE");
-		assertTrue("The TITAN_CODE attribute should be final", Modifier.isFinal(titanCodeField.getModifiers()));
+		assertTrue("The TITAN_CODE attribute should be final", java.lang.reflect.Modifier.isFinal(titanCodeField.getModifiers()));
 	}
 	
 	
@@ -222,7 +222,7 @@ public class Milestone1PrivateTests {
 	@Test(timeout = 100)
 	public void testTitanCodePublicAttributeInColossalClass() throws NoSuchFieldException, SecurityException, ClassNotFoundException {
 		Field titanCodeField = Class.forName(ColossalTitanClassPath).getDeclaredField("TITAN_CODE");
-		assertTrue("The TITAN_CODE attribute should be public", Modifier.isPublic(titanCodeField.getModifiers()));
+		assertTrue("The TITAN_CODE attribute should be public", java.lang.reflect.Modifier.isPublic(titanCodeField.getModifiers()));
 	}
 	
 	
@@ -380,14 +380,14 @@ public class Milestone1PrivateTests {
 	@Test (timeout = 100)
 	public void testAttributeWeaponCodeIsFinalInClassPiercingCannon() throws NoSuchFieldException, SecurityException, ClassNotFoundException {
 		Field WeaponCodeField = Class.forName(piercingCannonPath).getDeclaredField("WEAPON_CODE");
-		assertTrue("The WEAPON_CODE attribute should be final", Modifier.isFinal(WeaponCodeField.getModifiers()));
+		assertTrue("The WEAPON_CODE attribute should be final", java.lang.reflect.Modifier.isFinal(WeaponCodeField.getModifiers()));
 	}
 	
 
 	@Test (timeout = 100)
 	public void testAttributeMinRangeIsFinalInClassVolleySpreadCannon() throws NoSuchFieldException, SecurityException, ClassNotFoundException {
 		Field minRangeField = Class.forName(volleySpreadCannonPath).getDeclaredField("minRange");
-		assertTrue("The minRange attribute should be final", Modifier.isFinal(minRangeField.getModifiers()));
+		assertTrue("The minRange attribute should be final", java.lang.reflect.Modifier.isFinal(minRangeField.getModifiers()));
 	}
 
 	@Test(timeout = 1000)
@@ -1338,7 +1338,7 @@ public class Milestone1PrivateTests {
 	@Test (timeout = 100)
 	public void testAttributeWeaponCodeIsFinalInClassVolleySpreadCannon() throws NoSuchFieldException, SecurityException, ClassNotFoundException {
 		Field WeaponCodeField = Class.forName(volleySpreadCannonPath).getDeclaredField("WEAPON_CODE");
-		assertTrue("The WEAPON_CODE attribute should be final", Modifier.isFinal(WeaponCodeField.getModifiers()));
+		assertTrue("The WEAPON_CODE attribute should be final", java.lang.reflect.Modifier.isFinal(WeaponCodeField.getModifiers()));
 	}
 
 	@Test(timeout = 1000)
@@ -1392,7 +1392,7 @@ public class Milestone1PrivateTests {
 	@Test(timeout = 100)
 	public void testTitanCodePublicAttributeInArmoredClass() throws NoSuchFieldException, SecurityException, ClassNotFoundException {
 		Field titanCodeField = Class.forName(ArmoredTitanClassPath).getDeclaredField("TITAN_CODE");
-		assertTrue("The TITAN_CODE attribute should be public", Modifier.isPublic(titanCodeField.getModifiers()));
+		assertTrue("The TITAN_CODE attribute should be public", java.lang.reflect.Modifier.isPublic(titanCodeField.getModifiers()));
 	}
 
 
