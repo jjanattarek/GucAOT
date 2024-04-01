@@ -1,33 +1,27 @@
 package game.engine.weapons;
 
-public class VolleySpreadCannon extends Weapon {
-
+public class VolleySpreadCannon extends Weapon
+{
 	public static final int WEAPON_CODE = 3;
 
-	private final int minRange; // This attribute will never be changed once initialized.
+	private final int minRange;
+	private final int maxRange;
 
-	private final int maxRange;// This attribute will never be changed once initialized.
-
-	public int getMinRange() 
-	{
-		return minRange;
-	}
-
-	public int getMaxRange() 
-	{
-		return maxRange;
-	}
-
-	// super constructor
-	public VolleySpreadCannon(int baseDamage, final int minRange, final int maxRange) 
+	public VolleySpreadCannon(int baseDamage, int minRange, int maxRange)
 	{
 		super(baseDamage);
 		this.minRange = minRange;
 		this.maxRange = maxRange;
 	}
 
-	public static int getWeaponCode() 
+	public int getMinRange()
 	{
-		return WEAPON_CODE;
+		return minRange;
 	}
+
+	public int getMaxRange()
+	{
+		return maxRange;
+	}
+
 }
