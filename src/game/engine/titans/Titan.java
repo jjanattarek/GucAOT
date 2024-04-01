@@ -12,9 +12,9 @@ public abstract class Titan implements Comparable<Titan>,Attackee,Attacker,Mobil
 	
 	private int distanceFromBase;
 	
-	private int speed;
+	private int speed; // distance moved per turn
 
-	private final int resourcesValue;
+	private final int resourcesValue; // resources gained on kill
 	
 	private final int dangerLevel;
 
@@ -40,10 +40,7 @@ public abstract class Titan implements Comparable<Titan>,Attackee,Attacker,Mobil
 	@Override
 	public void setCurrentHealth(int health) 
 	{
-	  if(health <= 0)
-		  this.currentHealth = 0;
-	  else
-		  this.currentHealth = health;
+        this.currentHealth = Math.max(health, 0);
 	}
 
 	@Override
@@ -60,10 +57,7 @@ public abstract class Titan implements Comparable<Titan>,Attackee,Attacker,Mobil
 	@Override
 	public void setDistance(int distance)
 	{
-		if(distance <= 0 )
-		this.distanceFromBase = 0;
-		else
-			this.distanceFromBase = distance;
+        this.distanceFromBase = Math.max(distance, 0);
 	}
 
 	@Override
@@ -74,10 +68,7 @@ public abstract class Titan implements Comparable<Titan>,Attackee,Attacker,Mobil
 	@Override
 	public void setSpeed(int speed) 
 	{
-		if(speed<=0)
-		this.speed = 0;
-		else
-			this.speed = speed;
+		this.speed = Math.max(speed,0);
 	}
 	@Override
 	public int getResourcesValue() 
@@ -87,6 +78,7 @@ public abstract class Titan implements Comparable<Titan>,Attackee,Attacker,Mobil
 	//constructor
 	public Titan(int baseHealth,  int baseDamage,  int heightInMeters, int distanceFromBase, int speed, int resourcesValue,  int dangerLevel)
 	{
+		super();
 	    this.currentHealth = baseHealth;
 		this.baseHealth = baseHealth;
 		this.baseDamage = baseDamage;
@@ -98,7 +90,7 @@ public abstract class Titan implements Comparable<Titan>,Attackee,Attacker,Mobil
 	}
 
 
-	//e compareTo method to order titans based on their distance from the base/wall.
+	// prioritizing the nearest titans according to the wall
 	@Override
 	public int compareTo(Titan o) 
 	{

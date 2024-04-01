@@ -22,15 +22,15 @@ public class Battle
 
 	private final static int WALL_BASE_HEALTH = 10000 ;
 	
-	private final ArrayList<Titan> approachingTitans = new ArrayList<>();
+	private ArrayList<Titan> approachingTitans = new ArrayList<>();
 
 	private int numberOfTurns;
 	
 	private int resourcesGathered; 
 
-	private BattlePhase battlePhase = BattlePhase.EARLY;
+	private BattlePhase battlePhase ;
 	
-	private int numberOfTitansPerTurn = 1;
+	private int numberOfTitansPerTurn ;
 
 	private int score;
 	
@@ -40,7 +40,7 @@ public class Battle
 
 	private final HashMap<Integer,TitanRegistry> titansArchives;
 
-	private final PriorityQueue<Lane> lanes = new PriorityQueue<>();
+	private PriorityQueue<Lane> lanes = new PriorityQueue<>();
 
 	private final ArrayList<Lane> originalLanes;
 
@@ -129,15 +129,20 @@ public class Battle
 		return originalLanes;
 	}
 
-	public Battle(int numberOfTurns, int score, int titanSpawnDistance, int initialNumOfLanes, int initialResourcePerLane) throws IOException {
-        this.weaponFactory = new WeaponFactory();
-        this.numberOfTurns = numberOfTurns;
-        this.score = score;
-        this.titanSpawnDistance = titanSpawnDistance;
-        this.resourcesGathered = initialNumOfLanes * initialResourcePerLane;
-        this.titansArchives = DataLoader.readTitanRegistry();
-        this.originalLanes = new ArrayList<>();
-        initializeLanes(initialNumOfLanes);
+	public Battle(int numberOfTurns, int score, int titanSpawnDistance, int initialNumOfLanes, int initialResourcesPerLane) throws IOException {
+		super();
+		this.numberOfTurns = numberOfTurns;
+		this.battlePhase = BattlePhase.EARLY;
+		this.numberOfTitansPerTurn = 1;
+		this.score = score;
+		this.titanSpawnDistance = titanSpawnDistance;
+		this.resourcesGathered = initialResourcesPerLane * initialNumOfLanes;
+		this.weaponFactory = new WeaponFactory();
+		this.titansArchives = DataLoader.readTitanRegistry();
+		this.approachingTitans = new ArrayList<Titan>();
+		this.lanes = new PriorityQueue<>();
+		this.originalLanes = new ArrayList<>();
+		this.initializeLanes(initialNumOfLanes);
     }
 	
 	private void initializeLanes(int numOfLanes)
@@ -146,8 +151,8 @@ public class Battle
 		{
 			Wall w = new Wall(WALL_BASE_HEALTH);
 			Lane l = new Lane(w);
-			lanes.add(l);
-			originalLanes.add(l);
+			this.lanes.add(l);
+			this.originalLanes.add(l);
 		}
 	}
 

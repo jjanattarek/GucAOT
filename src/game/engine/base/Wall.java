@@ -21,18 +21,7 @@ public class Wall implements Attackee
 
 	@Override
 	public void setCurrentHealth(int health) {
-	    if (health < 0) 
-	    {
-	        this.currentHealth = 0;
-	    } 
-	    else if (this.currentHealth <= 0 && health > baseHealth) 
-	    {
-	        this.currentHealth = baseHealth;
-	    } 
-	    else 
-	    {
-	        this.currentHealth = health;
-	    }
+	    this.currentHealth = Math.max(health,0);
 	}
 
 	public Wall(int baseHealth) 

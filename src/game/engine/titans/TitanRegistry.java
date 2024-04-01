@@ -37,18 +37,9 @@ public class TitanRegistry
 		return dangerLevel;
 	}
 
-	
-	public TitanRegistry() {
-		this.code = 0;
-		this.baseHealth = 0;
-		this.baseDamage = 0;
-		this.heightInMeters = 0;
-		this.speed = 0;
-		this.resourcesValue = 0;
-		this.dangerLevel = 0;	}
-
 	public TitanRegistry( int code, int baseHealth, int baseDamage, int heightInMeters, int speed, int resourcesValue,int dangerLevel) 
 	{
+		super();
 		this.code = code;
 		this.baseHealth = baseHealth;
 		this.baseDamage = baseDamage;
