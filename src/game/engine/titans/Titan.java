@@ -99,3 +99,4 @@ public abstract class Titan implements Attacker, Attackee, Mobil, Comparable<Tit
 	}
 
 }
+//
