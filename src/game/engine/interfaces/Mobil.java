@@ -7,3 +7,4 @@ public interface Mobil
 	int getSpeed();
 	void setSpeed(int speed);
 }
+//

@@ -37,3 +37,4 @@ public class Wall implements Attackee
 	}
 
 }
+//
