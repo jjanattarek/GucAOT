@@ -6,3 +6,4 @@ public interface Attackee
 	void setCurrentHealth(int health);
 	int getResourcesValue();
 }
+//
