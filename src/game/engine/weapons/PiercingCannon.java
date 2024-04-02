@@ -15,7 +15,7 @@ public class PiercingCannon extends Weapon
 	}
 
 	@Override
-	int turnAttack(PriorityQueue<Titan> laneTitans) {
+	public int turnAttack(PriorityQueue<Titan> laneTitans) {
 		int resourcesum = 0;
 		PriorityQueue<Titan> temp = new PriorityQueue<>();
 		for(int i = 0; i<5;i++){

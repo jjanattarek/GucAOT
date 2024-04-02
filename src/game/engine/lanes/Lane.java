@@ -63,6 +63,44 @@ public class Lane implements Comparable<Lane>
 		weapons.add(weapon);
 	}
 
+	public void moveLaneTitans(){ //remove each titan, move them, then put them back again. (not in the same loop, so you don't take the same titan over and over.)
+		PriorityQueue<Titan> temp = new PriorityQueue<>();
+		while(!this.titans.isEmpty()) {
+			Titan x = this.titans.remove();
+			x.move();
+			temp.add(x);
+		}
+		while(!temp.isEmpty()){
+			this.titans.add(temp.remove());
+		}
+	}
+
+	public int performLaneTitansAttacks(){ //makes all titans attack once if they reached the wall
+		int resourceSum = 0;
+		PriorityQueue<Titan> temp = new PriorityQueue<>();
+		while(!this.titans.isEmpty()){
+			Titan x = this.titans.remove();
+			if(x.hasReachedTarget()){
+				int j = x.attack(this.laneWall);
+				resourceSum+=j;
+			}
+			temp.add(x);
+		}
+		while(!temp.isEmpty()){
+			this.titans.add(temp.remove());
+		}
+		return resourceSum;
+	}
+
+	public int performLaneWeaponsAttacks(){
+		int resourcesSum = 0;
+		for(Weapon x: weapons) {
+			int y = x.turnAttack(this.titans);
+			resourcesSum+=y;
+		}
+		return resourcesSum;
+	}
+
 	public static void main(String[] args) {
 		Titan t1 = new AbnormalTitan(2,100,20,60,15,15,2);
 		Titan t2 = new PureTitan(1,100,15,30,10,10,1);

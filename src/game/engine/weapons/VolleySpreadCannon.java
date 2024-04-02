@@ -35,7 +35,7 @@ public class VolleySpreadCannon extends Weapon
 	}
 
 	@Override
-	int turnAttack(PriorityQueue<Titan> laneTitans) {
+	public int turnAttack(PriorityQueue<Titan> laneTitans) {
 		int resourcesum = 0;
 		PriorityQueue<Titan> temp = new PriorityQueue<>();
 		for(int i = this.getMinRange(); i<this.getMaxRange();i++){
