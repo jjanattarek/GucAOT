@@ -101,6 +101,14 @@ public class Lane implements Comparable<Lane>
 		return resourcesSum;
 	}
 
+	public boolean isLaneLost(){
+		return laneWall.getCurrentHealth()<=0;
+	}
+
+	public void updateLaneDangerLevel(){
+
+	}
+
 	public static void main(String[] args) {
 		Titan t1 = new AbnormalTitan(2,100,20,60,15,15,2);
 		Titan t2 = new PureTitan(1,100,15,30,10,10,1);

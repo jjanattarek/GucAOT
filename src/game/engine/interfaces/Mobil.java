@@ -14,7 +14,7 @@ public interface Mobil
 	 {
 		if (!this.hasReachedTarget())
 		{
-			this.setDistance(this.getDistance()+this.getSpeed());
+			this.setDistance(this.getDistance()-this.getSpeed());
         }
          return this.hasReachedTarget();
      }
