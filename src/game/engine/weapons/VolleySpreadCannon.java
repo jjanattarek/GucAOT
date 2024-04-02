@@ -36,7 +36,20 @@ public class VolleySpreadCannon extends Weapon
 
 	@Override
 	int turnAttack(PriorityQueue<Titan> laneTitans) {
-		return 0;
+		int resourcesum = 0;
+		PriorityQueue<Titan> temp = new PriorityQueue<>();
+		for(int i = this.getMinRange(); i<this.getMaxRange();i++){
+			Titan x = laneTitans.remove();
+			int y = attack(x); //remove a titan then attack it and store the value of resources gained.
+			resourcesum+=y;
+			if(y==0){ //put him in temp queue if he's not dead yet.
+				temp.add(x);
+			}
+		}
+		while(!temp.isEmpty()){ //restore them all into queue again./
+			laneTitans.add(temp.remove());
+		}
+		return resourcesum;
 	}
 }
 //
