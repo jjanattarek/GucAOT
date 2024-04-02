@@ -16,7 +16,15 @@ public class WallTrap extends Weapon
 
 	@Override
 	int turnAttack(PriorityQueue<Titan> laneTitans) {
-		return 0;
+		Titan x = laneTitans.remove();
+		int y = 0;
+		if(x.getDistance()<=0){
+			y = attack(x);
+			if(y == 0){ //only return him into the queue if he's still alive
+				laneTitans.add(x);
+			}
+		}
+		return y;
 	}
 
 	@Override
