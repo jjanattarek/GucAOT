@@ -23,5 +23,9 @@ public abstract class Weapon implements Attacker
 
 	abstract int turnAttack(PriorityQueue<Titan> laneTitans);
 
+	@Override
+	public String toString() {
+		return "Weapon" + " baseDamage =" + baseDamage ;
+	}
 }
 //
