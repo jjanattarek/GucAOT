@@ -1,6 +1,7 @@
 package game.engine.lanes;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 import game.engine.base.Wall;
@@ -19,7 +20,7 @@ public class Lane implements Comparable<Lane>
 		super();
 		this.laneWall = laneWall;
 		this.dangerLevel = 0;
-		this.titans = new PriorityQueue<>();
+		this.titans = new PriorityQueue<>(Comparator.comparingInt(Titan::getDistance));
 		this.weapons = new ArrayList<>();
 	}
 
@@ -56,10 +57,12 @@ public class Lane implements Comparable<Lane>
 
 	public static void main(String[] args) {
 		Titan t1 = new AbnormalTitan(2,100,20,60,15,15,2);
-		Titan t2 = new PureTitan(1,100,15,15,10,10,1);
-		Titan t3 = new ColossalTitan(4,1000,100,10,5,60,4);
-		Titan t4 = new ArmoredTitan(3,200,85,5,10,30,3);
-		Titan t5 = new ArmoredTitan(3,200,85,1,10,30,3);
+		Titan t2 = new PureTitan(1,100,15,30,10,10,1);
+		Titan t3 = new ColossalTitan(4,1000,100,15,5,60,4);
+		Titan t4 = new ArmoredTitan(3,200,85,10,10,30,3);
+		Titan t5 = new ArmoredTitan(3,200,85,9,10,30,3);
+		Titan t6 = new ArmoredTitan(3,200,85,5,10,30,3);
+		Titan t7 = new ArmoredTitan(3,200,85,1,10,30,3);
 		Wall w = new Wall(10000);
 		Lane l = new Lane(w);
 		l.titans.add(t2);
@@ -67,6 +70,8 @@ public class Lane implements Comparable<Lane>
 		l.titans.add(t3);
 		l.titans.add(t4);
 		l.titans.add(t5);
+		l.titans.add(t6);
+		l.titans.add(t7);
 		System.out.println(l.titans);
 
 	}
