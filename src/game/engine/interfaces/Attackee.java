@@ -6,7 +6,7 @@ public interface Attackee
 	void setCurrentHealth(int health);
 	int getResourcesValue();
 	default boolean isDefeated(){
-		return this.getCurrentHealth() == 0;
+		return this.getCurrentHealth() <= 0;
 	}
 	default int takeDamage(int damage){
 			if (this.getCurrentHealth()-damage <= 0 ){
