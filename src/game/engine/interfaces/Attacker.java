@@ -7,4 +7,3 @@ public interface Attacker
 		return target.takeDamage(this.getDamage());
 	}
 }
-//

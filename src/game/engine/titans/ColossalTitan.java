@@ -19,4 +19,3 @@ public class ColossalTitan extends Titan
 		return this.hasReachedTarget();
 	}
 }
-//
