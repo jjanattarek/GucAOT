@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 import game.engine.base.Wall;
-import game.engine.titans.AbnormalTitan;
-import game.engine.titans.Titan;
+import game.engine.titans.*;
 import game.engine.weapons.Weapon;
 
 public class Lane implements Comparable<Lane>
@@ -56,14 +55,18 @@ public class Lane implements Comparable<Lane>
 	}
 
 	public static void main(String[] args) {
-		Titan t1 = new AbnormalTitan(1,1,1,5,1,6,2);
-		Titan t2 = new AbnormalTitan(1,1,1,3,1,6,3);
-		Titan t3 = new AbnormalTitan(1,1,1,2,6,6,5);
+		Titan t1 = new AbnormalTitan(2,100,20,60,15,15,2);
+		Titan t2 = new PureTitan(1,100,15,15,10,10,1);
+		Titan t3 = new ColossalTitan(4,1000,100,10,5,60,4);
+		Titan t4 = new ArmoredTitan(3,200,85,5,10,30,3);
+		Titan t5 = new ArmoredTitan(3,200,85,1,10,30,3);
 		Wall w = new Wall(10000);
 		Lane l = new Lane(w);
-		l.titans.add(t1);
 		l.titans.add(t2);
+		l.titans.add(t1);
 		l.titans.add(t3);
+		l.titans.add(t4);
+		l.titans.add(t5);
 		System.out.println(l.titans);
 
 	}
