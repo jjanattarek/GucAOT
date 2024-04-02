@@ -30,11 +30,6 @@ public class VolleySpreadCannon extends Weapon
 	}
 
 	@Override
-	public int attack(Attackee target) {
-		return super.attack(target);
-	}
-
-	@Override
 	public int turnAttack(PriorityQueue<Titan> laneTitans) {
 		int resourcesum = 0;
 		PriorityQueue<Titan> temp = new PriorityQueue<>();

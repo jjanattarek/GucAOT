@@ -27,9 +27,5 @@ public class WallTrap extends Weapon
 		return y;
 	}
 
-	@Override
-	public int attack(Attackee target) {
-		return super.attack(target);
-	}
 }
 //

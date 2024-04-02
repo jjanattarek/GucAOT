@@ -32,9 +32,5 @@ public class PiercingCannon extends Weapon
 		return resourcesum;
 	}
 
-	@Override
-	public int attack(Attackee target) {
-		return super.attack(target);
-	}
 }
 //
