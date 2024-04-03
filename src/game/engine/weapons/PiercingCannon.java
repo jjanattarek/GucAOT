@@ -26,10 +26,11 @@ public class PiercingCannon extends Weapon
 				temp.add(x);
 			}
 		}
-		while(!temp.isEmpty()){ //restore them all into queue again.
+		while(!temp.isEmpty()){ //restore them all into queue again./
 			laneTitans.add(temp.remove());
 		}
 		return resourcesum;
 	}
+
 }
 //
