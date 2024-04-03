@@ -1,10 +1,4 @@
 package game.engine.titans;
-
-import game.engine.dataloader.DataLoader;
-
-import java.io.IOException;
-import java.util.HashMap;
-
 public class TitanRegistry // For storing the titan's information from the csv file read in the data loader
 {
 	private final int code;
@@ -77,5 +71,8 @@ public class TitanRegistry // For storing the titan's information from the csv f
 		else{
             return new ColossalTitan(1000,100,60,distanceFromBase,5,60,4);
 		}
+	}
+
+	public static void main(String[] args) {
 	}
 }
