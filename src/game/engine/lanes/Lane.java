@@ -106,7 +106,17 @@ public class Lane implements Comparable<Lane>
 	}
 
 	public void updateLaneDangerLevel(){
-
+		int dangerSum= 0;
+		PriorityQueue<Titan> temp = new PriorityQueue<>();
+		while(!titans.isEmpty()){
+			Titan x = titans.remove();
+			dangerSum+=x.getDangerLevel();
+			temp.add(x);
+		}
+		while(!temp.isEmpty()){
+			titans.add(temp.remove());
+		}
+		this.dangerLevel=dangerSum;
 	}
 
 	public static void main(String[] args) {
