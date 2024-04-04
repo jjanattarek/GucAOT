@@ -7,10 +7,15 @@ import java.util.PriorityQueue;
 
 import game.engine.base.Wall;
 import game.engine.dataloader.DataLoader;
+import game.engine.exceptions.InsufficientResourcesException;
+import game.engine.exceptions.InvalidLaneException;
 import game.engine.lanes.Lane;
 import game.engine.titans.Titan;
 import game.engine.titans.TitanRegistry;
+import game.engine.weapons.factory.FactoryResponse;
 import game.engine.weapons.factory.WeaponFactory;
+
+import static game.engine.dataloader.DataLoader.readTitanRegistry;
 
 public class Battle
 {
@@ -45,7 +50,7 @@ public class Battle
 		this.titanSpawnDistance = titanSpawnDistance;
 		this.resourcesGathered = initialResourcesPerLane * initialNumOfLanes;
 		this.weaponFactory = new WeaponFactory();
-		this.titansArchives = DataLoader.readTitanRegistry();
+		this.titansArchives = readTitanRegistry();
 		this.approachingTitans = new ArrayList<Titan>();
 		this.lanes = new PriorityQueue<>();
 		this.originalLanes = new ArrayList<>();
@@ -148,6 +153,40 @@ public class Battle
 			this.getLanes().add(l);
 		}
 	}
+
+	public void refillApproachingTitans() throws IOException { //what should the distancefrombase for each titan be??
+		// we want to only read the first row (first list) if the battlephase is early and so on.
+		int row;
+		if(battlePhase == BattlePhase.EARLY){
+			row = 0;
+		}
+		else if(battlePhase == BattlePhase.INTENSE){
+			row = 1;
+		}
+		else {
+			row = 2;
+		}
+
+		// read from titan registry hatly el titan that has this code
+		HashMap<Integer, TitanRegistry> a = readTitanRegistry();
+		for(int i = 0; i<=7;i++){
+			TitanRegistry TitanR = a.get(PHASES_APPROACHING_TITANS[row][i]);
+			approachingTitans.add(TitanR.spawnTitan(i));
+			// I am wildly unsure of what the distance should be bas I made it so that its tarteebo fel list.
+		}
+	}
+
+	public void purchaseWeapon(int weaponCode, Lane lane) throws InsufficientResourcesException, InvalidLaneException {
+		// hastakhdem the buyweapon method I made fe weaponfactory to purchase it
+		FactoryResponse f = weaponFactory.buyWeapon(resourcesGathered, weaponCode);
+		if(!lane.isLaneLost()){
+			lane.addWeapon(f.getWeapon());
+		}
+		setResourcesGathered(f.getRemainingResources());
+		//hwa bey2ool rest of turn actions should complete after that and idk what that means ngl.
+	}
+
+
 
 }
 //
