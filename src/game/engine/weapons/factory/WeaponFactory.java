@@ -38,5 +38,20 @@ public class WeaponFactory
 		  // if its fine return a factory response that takes a weapon that I made from the method BuildWeapon.
 		  // and also take the remaining resources
 	}
+
+	void addWeaponToShop(int code, int price){
+		WeaponRegistry a = new WeaponRegistry(code, price);
+		weaponShop.put(code, a);
+	}
+
+	void addWeaponToShop(int code, int price, int damage, String name){
+		WeaponRegistry a = new WeaponRegistry(code, price, damage, name);
+		weaponShop.put(code, a);
+	}
+
+	void addWeaponToShop(int code, int price, int damage, String name, int minRange, int maxRange){
+		WeaponRegistry a = new WeaponRegistry(code, price, damage, name, minRange, maxRange);
+		weaponShop.put(code, a);
+	}
 }
 //
