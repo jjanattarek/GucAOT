@@ -73,16 +73,16 @@ public class WeaponRegistry
 
 	public Weapon buildWeapon(){
 		if (this.code == 1){
-			return new PiercingCannon(10);
+			return new PiercingCannon(damage);
 		}
 		else if (this.code == 2){
-			return new SniperCannon(35);
+			return new SniperCannon(damage);
 		}
 		else if (this.code == 3){
-			return new VolleySpreadCannon(5,20,50);
+			return new VolleySpreadCannon(damage,minRange,maxRange);
 		}
 		else{
-			return new WallTrap(100);
+			return new WallTrap(damage);
 		}
 	}
 
