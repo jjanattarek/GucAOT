@@ -36,7 +36,7 @@ public class Battle
 	private final WeaponFactory weaponFactory;
 	private final HashMap<Integer, TitanRegistry> titansArchives;
 	private final ArrayList<Titan> approachingTitans; // treated as a Queue
-	private final PriorityQueue<Lane> lanes;
+	private final PriorityQueue<Lane> lanes; //from least to highest danger level according to compareTo of Lanes.
 	private final ArrayList<Lane> originalLanes;
 
 	public Battle(int numberOfTurns, int score, int titanSpawnDistance, int initialNumOfLanes,
@@ -169,7 +169,7 @@ public class Battle
 
 		// read from titan registry hatly el titan that has this code
 		HashMap<Integer, TitanRegistry> a = readTitanRegistry();
-		for(int i = 0; i<=7;i++){
+		for(int i = 0; i<7;i++){
 			TitanRegistry TitanR = a.get(PHASES_APPROACHING_TITANS[row][i]);
 			approachingTitans.add(TitanR.spawnTitan(i));
 			// I am wildly unsure of what the distance should be bas I made it so that its tarteebo fel list.
@@ -182,11 +182,108 @@ public class Battle
 		if(!lane.isLaneLost()){
 			lane.addWeapon(f.getWeapon());
 		}
+		else{
+			throw new InvalidLaneException();
+		}
 		setResourcesGathered(f.getRemainingResources());
 		//hwa bey2ool rest of turn actions should complete after that and idk what that means ngl.
 	}
 
 
+	private void addTurnTitansToLane() throws IOException {
+		for (int i = 0; i<numberOfTitansPerTurn;i++){
+			if(approachingTitans.isEmpty()){
+				refillApproachingTitans();
+			}
+			Lane LeastDangerousLane = lanes.remove();
+			LeastDangerousLane.addTitan(approachingTitans.removeFirst());
+		}
+	}
+
+	private void moveTitans(){
+		PriorityQueue<Lane> temp = new PriorityQueue<>();
+		while(!lanes.isEmpty()){
+			Lane L = lanes.remove();
+			temp.add(L);
+			if(!L.isLaneLost()){
+				L.moveLaneTitans();
+				}
+			}
+		while(!temp.isEmpty()){
+			lanes.add(temp.remove());
+		}
+	}
+
+	private int performWeaponsAttacks(){
+		PriorityQueue<Lane> temp = new PriorityQueue<>();
+		int resourceSum = 0;
+		while(!lanes.isEmpty()){
+			Lane L = lanes.remove();
+			temp.add(L);
+			if(!L.isLaneLost()){
+				int a = L.performLaneWeaponsAttacks();
+				resourceSum+=a;
+			}
+		}
+		while(!temp.isEmpty()){
+			lanes.add(temp.remove());
+		}
+		return resourceSum;
+	}
+
+	private int performTitansAttacks(){
+		PriorityQueue<Lane> temp = new PriorityQueue<>();
+		int resourceSum = 0;
+		while(!lanes.isEmpty()){
+			Lane L = lanes.remove();
+			temp.add(L);
+			if(!L.isLaneLost()){
+				int a = L.performLaneTitansAttacks();
+				resourceSum+=a;
+			}
+		}
+		while(!temp.isEmpty()){
+			lanes.add(temp.remove());
+		}
+		return resourceSum;
+	}
+
+	private void updateLanesDangerLevels(){
+		PriorityQueue<Lane> temp = new PriorityQueue<>();
+		while(!lanes.isEmpty()){
+			Lane L = lanes.remove();
+			temp.add(L);
+			if(!L.isLaneLost()){
+				L.updateLaneDangerLevel();
+			}
+		}
+		while(!temp.isEmpty()){
+			lanes.add(temp.remove());
+		}
+	}
+
+	private void finalizeTurns(){
+		numberOfTurns++;
+
+		if(numberOfTurns<15){
+			BattlePhase b = BattlePhase.EARLY;
+			setBattlePhase(b);
+		}
+		else if(numberOfTurns>15 && numberOfTurns<30){
+			BattlePhase b = BattlePhase.INTENSE;
+			setBattlePhase(b);
+		}
+		else if(numberOfTurns>=30 && numberOfTurns%5!=0){
+			BattlePhase b = BattlePhase.GRUMBLING;
+			setBattlePhase(b);
+		}
+		else if(numberOfTurns>=30 && numberOfTurns%5==0){
+			BattlePhase b = BattlePhase.GRUMBLING;
+			setBattlePhase(b);
+
+			setNumberOfTitansPerTurn(2*getNumberOfTitansPerTurn());
+		}
+	}
 
 }
 //
