@@ -171,8 +171,8 @@ public class Battle
 		HashMap<Integer, TitanRegistry> a = readTitanRegistry();
 		for(int i = 0; i<7;i++){
 			TitanRegistry TitanR = a.get(PHASES_APPROACHING_TITANS[row][i]);
-			approachingTitans.add(TitanR.spawnTitan(i));
-			// I am wildly unsure of what the distance should be bas I made it so that its tarteebo fel list.
+			approachingTitans.add(TitanR.spawnTitan(getTitanSpawnDistance()));
+			// I FOUND IT EZ, feeh attribute esmo titan spawn distance wana ely 3abat w mashoftosh.
 		}
 	}
 
