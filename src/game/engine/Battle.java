@@ -285,5 +285,20 @@ public class Battle
 		}
 	}
 
+	boolean isGameOver(){
+		PriorityQueue<Lane> temp = new PriorityQueue<>();
+		while(!lanes.isEmpty()){
+			Lane L = lanes.remove();
+			temp.add(L);
+			if(!L.isLaneLost()){
+				return false;
+			}
+		}
+		while(!temp.isEmpty()){
+			lanes.add(temp.remove());
+	}
+		return true;
+	}
+
 }
 //
