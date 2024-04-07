@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
+import java.util.Scanner;
 
 import game.engine.base.Wall;
 import game.engine.dataloader.DataLoader;
@@ -154,7 +155,7 @@ public class Battle
 		}
 	}
 
-	public void refillApproachingTitans() throws IOException { //what should the distancefrombase for each titan be??
+	public void refillApproachingTitans() throws IOException {
 		// we want to only read the first row (first list) if the battlephase is early and so on.
 		int row;
 		if(battlePhase == BattlePhase.EARLY){
@@ -176,7 +177,7 @@ public class Battle
 		}
 	}
 
-	public void purchaseWeapon(int weaponCode, Lane lane) throws InsufficientResourcesException, InvalidLaneException {
+	public void purchaseWeapon(int weaponCode, Lane lane) throws InsufficientResourcesException, InvalidLaneException, IOException {
 		// hastakhdem the buyweapon method I made fe weaponfactory to purchase it
 		FactoryResponse f = weaponFactory.buyWeapon(resourcesGathered, weaponCode);
 		if(!lane.isLaneLost()){
@@ -186,7 +187,11 @@ public class Battle
 			throw new InvalidLaneException();
 		}
 		setResourcesGathered(f.getRemainingResources());
+		performTurn();
 		//hwa bey2ool rest of turn actions should complete after that and idk what that means ngl.
+	}
+	public void passTurn() throws IOException {
+		performTurn();
 	}
 
 
@@ -261,6 +266,15 @@ public class Battle
 			lanes.add(temp.remove());
 		}
 	}
+	private void performTurn() throws IOException {
+		moveTitans();
+		int x = performWeaponsAttacks();
+		int y = performTitansAttacks();
+		addTurnTitansToLane();
+		finalizeTurns();
+		this.setResourcesGathered(this.getResourcesGathered()+x+y);
+	}
+
 
 	private void finalizeTurns(){
 		numberOfTurns++;
@@ -299,6 +313,7 @@ public class Battle
 	}
 		return true;
 	}
+
 
 }
 //
