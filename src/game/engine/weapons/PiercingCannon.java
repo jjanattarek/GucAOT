@@ -14,23 +14,32 @@ public class PiercingCannon extends Weapon
 		super(baseDamage);
 	}
 
+	//adjusted this
 	@Override
-	public int turnAttack(PriorityQueue<Titan> laneTitans) {
+	public int turnAttack(PriorityQueue<Titan> laneTitans)
+	{
+		if (laneTitans.isEmpty())
+		{
+			return 0;
+		}
 		int resourcesum = 0;
 		PriorityQueue<Titan> temp = new PriorityQueue<>();
-		for(int i = 0; i<5;i++){
-			Titan x = laneTitans.remove();
-			int y = attack(x); //remove a titan then attack it and store the value of resources gained.
-			resourcesum+=y;
-			if(y==0){ //put him in temp queue if he's not dead yet.
-				temp.add(x);
+		for (int i = 0; i < 5 && !laneTitans.isEmpty(); i++) {
+			Titan titan = laneTitans.poll();
+			int resourcesGained = attack(titan);
+			resourcesum += resourcesGained;
+			if (resourcesGained > 0)
+			{
+			}
+			else
+			{
+				temp.add(titan);
 			}
 		}
-		while(!temp.isEmpty()){ //restore them all into queue again./
-			laneTitans.add(temp.remove());
-		}
+		laneTitans.addAll(temp);
 		return resourcesum;
 	}
+
 
 }
 //

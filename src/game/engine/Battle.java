@@ -196,13 +196,21 @@ public class Battle
 
 
 	private void addTurnTitansToLane() throws IOException {
-		for (int i = 0; i<numberOfTitansPerTurn;i++){
-			if(approachingTitans.isEmpty()){
+		for (int i = 0; i < numberOfTitansPerTurn; i++) {
+			if (approachingTitans.isEmpty()) {
 				refillApproachingTitans();
 			}
-			Lane LeastDangerousLane = lanes.remove();
-			LeastDangerousLane.addTitan(approachingTitans.remove(0));
-			lanes.add(LeastDangerousLane);
+			//the method wasnt checking the least dangerous lane
+			Lane leastDangerousLane = null;
+			for (Lane lane : lanes) {
+				if (leastDangerousLane == null || lane.getDangerLevel() < leastDangerousLane.getDangerLevel()) {
+					leastDangerousLane = lane;
+				}
+			}
+			//Add titan to the least dangerous lane (if found)
+			if (leastDangerousLane != null) {
+				leastDangerousLane.addTitan(approachingTitans.remove(0));
+			}
 		}
 	}
 
@@ -220,36 +228,32 @@ public class Battle
 		}
 	}
 
-	private int performWeaponsAttacks(){
-		PriorityQueue<Lane> temp = new PriorityQueue<>();
-		int resourceSum = 0;
-		while(!lanes.isEmpty()){
-			Lane L = lanes.remove();
-			temp.add(L);
-			if(!L.isLaneLost()){
-				int a = L.performLaneWeaponsAttacks();
-				resourceSum+=a;
-			}
+	//adjusted this
+	private int performWeaponsAttacks() {
+		int totalResources = 0;
+		for (Lane lane : lanes) {
+			totalResources += lane.performLaneWeaponsAttacks();
 		}
-		while(!temp.isEmpty()){
-			lanes.add(temp.remove());
-		}
-		return resourceSum;
+		return totalResources;
 	}
 
-	private int performTitansAttacks(){
+	//only added lanes if not lost
+	private int performTitansAttacks() {
 		PriorityQueue<Lane> temp = new PriorityQueue<>();
 		int resourceSum = 0;
-		while(!lanes.isEmpty()){
+		while (!lanes.isEmpty()) {
 			Lane L = lanes.remove();
 			temp.add(L);
-			if(!L.isLaneLost()){
+			if (!L.isLaneLost()) {
 				int a = L.performLaneTitansAttacks();
-				resourceSum+=a;
+				resourceSum += a;
 			}
 		}
-		while(!temp.isEmpty()){
-			lanes.add(temp.remove());
+		while (!temp.isEmpty()) {
+			Lane lane = temp.remove();
+			if (!lane.isLaneLost()) {
+				lanes.add(lane);
+			}
 		}
 		return resourceSum;
 	}
@@ -300,7 +304,9 @@ public class Battle
 		}
 	}
 
-	boolean isGameOver(){
+
+	//wasnt public lol
+	public boolean isGameOver(){
 		PriorityQueue<Lane> temp = new PriorityQueue<>();
 		while(!lanes.isEmpty()){
 			Lane L = lanes.remove();

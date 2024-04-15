@@ -15,6 +15,8 @@ public class SniperCannon extends Weapon
 
 	@Override
 	public int turnAttack(PriorityQueue<Titan> laneTitans) {
+		if (laneTitans.isEmpty())
+			return 0;
 		Titan x = laneTitans.remove();
 		int y = attack(x);
 		if(y == 0){ //only return him into the queue if he's still alive
