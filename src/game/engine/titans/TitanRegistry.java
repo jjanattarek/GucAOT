@@ -1,4 +1,10 @@
 package game.engine.titans;
+
+import game.engine.dataloader.DataLoader;
+
+import java.io.IOException;
+import java.util.HashMap;
+
 public class TitanRegistry // For storing the titan's information from the csv file read in the data loader
 {
 	private final int code;
@@ -73,6 +79,10 @@ public class TitanRegistry // For storing the titan's information from the csv f
 		}
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
+		HashMap<Integer, TitanRegistry> r = DataLoader.readTitanRegistry();
+		TitanRegistry k = r.get(4);
+		Titan x = k.spawnTitan(100);
+		System.out.print(x.getBaseHealth());
 	}
 }

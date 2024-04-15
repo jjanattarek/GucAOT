@@ -201,7 +201,8 @@ public class Battle
 				refillApproachingTitans();
 			}
 			Lane LeastDangerousLane = lanes.remove();
-			LeastDangerousLane.addTitan(approachingTitans.removeFirst());
+			LeastDangerousLane.addTitan(approachingTitans.remove(0));
+			lanes.add(LeastDangerousLane);
 		}
 	}
 
@@ -314,6 +315,9 @@ public class Battle
 		return true;
 	}
 
+	public static void main(String[] args) {
+
+	}
 
 }
 //
