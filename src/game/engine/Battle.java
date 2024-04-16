@@ -178,21 +178,21 @@ public class Battle
 	}
 
 	public void purchaseWeapon(int weaponCode, Lane lane) throws InsufficientResourcesException, InvalidLaneException, IOException {
-		// hastakhdem the buyweapon method I made fe weaponfactory to purchase it
-		FactoryResponse f = weaponFactory.buyWeapon(resourcesGathered, weaponCode);
-		if(!lane.isLaneLost()){
-			lane.addWeapon(f.getWeapon());
-		}
-		else{
+		if (lane.isLaneLost() || !lanes.contains(lane)) {
 			throw new InvalidLaneException();
 		}
+		FactoryResponse f = weaponFactory.buyWeapon(resourcesGathered, weaponCode);
+		lane.addWeapon(f.getWeapon());
 		setResourcesGathered(f.getRemainingResources());
 		performTurn();
-		//hwa bey2ool rest of turn actions should complete after that and idk what that means ngl.
 	}
+
+
 	public void passTurn() throws IOException {
 		performTurn();
 	}
+
+
 
 
 	private void addTurnTitansToLane() throws IOException {
@@ -200,14 +200,12 @@ public class Battle
 			if (approachingTitans.isEmpty()) {
 				refillApproachingTitans();
 			}
-			//the method wasnt checking the least dangerous lane
 			Lane leastDangerousLane = null;
 			for (Lane lane : lanes) {
 				if (leastDangerousLane == null || lane.getDangerLevel() < leastDangerousLane.getDangerLevel()) {
 					leastDangerousLane = lane;
 				}
 			}
-			//Add titan to the least dangerous lane (if found)
 			if (leastDangerousLane != null) {
 				leastDangerousLane.addTitan(approachingTitans.remove(0));
 			}
@@ -234,8 +232,12 @@ public class Battle
 		for (Lane lane : lanes) {
 			totalResources += lane.performLaneWeaponsAttacks();
 		}
+		this.score += totalResources;
+		this.resourcesGathered += totalResources;
 		return totalResources;
 	}
+
+
 
 	//only added lanes if not lost
 	private int performTitansAttacks() {
@@ -274,35 +276,32 @@ public class Battle
 	private void performTurn() throws IOException {
 		moveTitans();
 		int x = performWeaponsAttacks();
+//		this.setScore(this.getScore() + x);
 		int y = performTitansAttacks();
 		addTurnTitansToLane();
+		updateLanesDangerLevels();
 		finalizeTurns();
-		this.setResourcesGathered(this.getResourcesGathered()+x+y);
+//		this.setResourcesGathered(this.getResourcesGathered()+x+y);
 	}
 
 
-	private void finalizeTurns(){
+	private void finalizeTurns() {
 		numberOfTurns++;
+		if (numberOfTurns < 15) {
+			setBattlePhase(BattlePhase.EARLY);
+		} else if (numberOfTurns < 30) {
+			setBattlePhase(BattlePhase.INTENSE);
+		} else {
+			setBattlePhase(BattlePhase.GRUMBLING);
+		}
+		if (numberOfTurns > 30 && numberOfTurns % 5 == 0) {
 
-		if(numberOfTurns<15){
-			BattlePhase b = BattlePhase.EARLY;
-			setBattlePhase(b);
-		}
-		else if(numberOfTurns>15 && numberOfTurns<30){
-			BattlePhase b = BattlePhase.INTENSE;
-			setBattlePhase(b);
-		}
-		else if(numberOfTurns>=30 && numberOfTurns%5!=0){
-			BattlePhase b = BattlePhase.GRUMBLING;
-			setBattlePhase(b);
-		}
-		else if(numberOfTurns>=30 && numberOfTurns%5==0){
-			BattlePhase b = BattlePhase.GRUMBLING;
-			setBattlePhase(b);
-
-			setNumberOfTitansPerTurn(2*getNumberOfTitansPerTurn());
+			setNumberOfTitansPerTurn(getNumberOfTitansPerTurn() * 2);
 		}
 	}
+
+
+
 
 
 	//wasnt public lol

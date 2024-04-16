@@ -29,29 +29,29 @@ public class VolleySpreadCannon extends Weapon
 		return maxRange;
 	}
 
+	//modified this
 	@Override
-	public int turnAttack(PriorityQueue<Titan> laneTitans) {
+	public int turnAttack(PriorityQueue<Titan> laneTitans){
 		if (laneTitans.isEmpty())
 			return 0;
 		int resourcesum = 0;
 		PriorityQueue<Titan> temp = new PriorityQueue<>();
-		while(!laneTitans.isEmpty()){
+		while (!laneTitans.isEmpty()) {
 			Titan x = laneTitans.remove();
-			if(x.getDistance()>=minRange && x.getDistance()<=maxRange) {
-				int y = attack(x); //remove a titan then attack it and store the value of resources gained.
+			if (x.getDistance() >= minRange && x.getDistance() <= maxRange) {
+				int y = attack(x);
 				resourcesum += y;
-				if(y==0) { //put him in temp queue if he's not dead yet.
-				temp.add(x);
-			}
-				else{
+				if (y == 0) {
 					temp.add(x);
 				}
+			} else {
+				temp.add(x);
 			}
 		}
-		while(!temp.isEmpty()){ //restore them all into queue again./
-			laneTitans.add(temp.remove());
-		}
+		laneTitans.addAll(temp);
 		return resourcesum;
 	}
+
+
 }
 //
